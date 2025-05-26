@@ -2,6 +2,10 @@
 
 a fork of [presenterm.nvim](https://github.com/marianozunino/presenterm.nvim) by marianozunino
 
+## Requirements
+
+- presenterm (tested with 0.14.0)
+
 ## Features
 
 - Launch Preview in snacks terminal
