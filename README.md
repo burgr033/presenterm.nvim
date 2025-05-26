@@ -12,13 +12,24 @@ a fork of [presenterm.nvim](https://github.com/marianozunino/presenterm.nvim) by
 ### Using [lazy.nvim](https://github.com/folke/lazy.nvim)
 
 ```lua
-{
-  "burgr033/presenterm.nvim",
-  ft = "markdown",
-  config = function()
-    require("presenterm").setup({})
-  end
-}
+  {
+    "burgr033/presenterm.nvim",
+    ft = "markdown",
+    opts = {},
+    keys = {
+      {
+        "<localleader>e",
+        function() require("presenterm").export_pdf() end,
+        desc = "export presentation as pdf",
+      },
+      {
+        "<localleader>p",
+        function() require("presenterm").toggle_preview() end,
+        desc = "toggle preview of presentation",
+        mode = { "n", "t" },
+      },
+    },
+  }
 ```
 
 ## Configuration

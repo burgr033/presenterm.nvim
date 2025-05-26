@@ -19,17 +19,24 @@ To install 'presenterm.nvim', you can use your preferred plugin manager.
 
 >lua
     -- Lazy
-    {
-        "burgr033/presenterm.nvim",
-        ft = "markdown"
-        dependencies = {
-            "folke/snacks.nvim"
-        },
-        config = function()
-          require("presenterm").setup({})
-        end
-    }
-<
+  {
+    "burgr033/presenterm.nvim",
+    ft = "markdown",
+    opts = {},
+    keys = {
+      {
+        "<localleader>e",
+        function() require("presenterm").export_pdf() end,
+        desc = "export presentation as pdf",
+      },
+      {
+        "<localleader>p",
+        function() require("presenterm").toggle_preview() end,
+        desc = "toggle preview of presentation",
+        mode = { "n", "t" },
+      },
+    },
+  }<
 
 (snacks.nvim is not required per se. If you don't want to use it, leave it
 out of the dependencies)
