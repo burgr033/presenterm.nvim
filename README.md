@@ -14,21 +14,23 @@ a fork of [presenterm.nvim](https://github.com/marianozunino/presenterm.nvim) by
 ```lua
   {
     "burgr033/presenterm.nvim",
-    ft = "markdown",
-    opts = {},
-    keys = {
-      {
-        "<localleader>e",
-        function() require("presenterm").export_pdf() end,
-        desc = "export presentation as pdf",
-      },
-      {
-        "<localleader>p",
-        function() require("presenterm").toggle_preview() end,
-        desc = "toggle preview of presentation",
-        mode = { "n", "t" },
-      },
-    },
+    ft = "markdown", -- lazy-load on markdown files
+    opts = {},       -- optional: pass config options
+    config = function(_, opts)
+      require("presenterm").setup(opts)
+
+      -- Define mappings only after the plugin is loaded (for markdown)
+      vim.keymap.set("n", "<localleader>e", function()
+        require("presenterm").export_pdf()
+      end, { desc = "Export presentation as PDF", buffer = true })
+
+      vim.keymap.set({ "n", "t" }, "<localleader>p", function()
+        local count = vim.v.count > 0 and vim.v.count or nil
+        if vim.fn.mode() == "t" then
+          vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-\\><C-n>", true, false, true), "n", false)
+        end
+        require("presenterm").toggle_preview(count)
+      end, { desc = "Toggle preview (with optional slide number)", buffer = true })    end
   }
 ```
 
